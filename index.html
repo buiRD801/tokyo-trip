@@ -270,7 +270,7 @@ body::before {
   max-height: 0; overflow: hidden;
   transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1);
 }
-.day.open .day-body { max-height: 1200px; }
+.day.open .day-body { max-height: 3000px; }
 
 .day-body-inner {
   padding: 0 0 2.5rem 104px;
@@ -328,6 +328,55 @@ body::before {
   background: var(--vermillion-pale);
   border: 0.5px solid var(--vermillion-light);
   padding: 4px 12px;
+}
+
+/* ===== SPOTS ===== */
+.spots {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 0.5px solid var(--paper-deep);
+}
+.spots-label {
+  font-family: var(--mono); font-size: 18px;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--ash); margin-bottom: 1rem;
+  display: flex; align-items: center; gap: 10px;
+}
+.spots-label::before {
+  content: '';
+  display: block; width: 20px; height: 0.5px;
+  background: var(--ash);
+}
+.spots-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+.spot-card {
+  padding: 14px 16px;
+  border: 0.5px solid var(--paper-deep);
+  background: var(--paper);
+  transition: border-color 0.2s, background 0.2s;
+}
+.spot-card:hover {
+  border-color: var(--vermillion-light);
+  background: var(--vermillion-pale);
+}
+.spot-name {
+  font-size: 18px; font-weight: 500;
+  color: var(--ink); line-height: 1.3;
+  margin-bottom: 5px;
+}
+.spot-desc {
+  font-size: 18px; color: var(--ash);
+  line-height: 1.6;
+}
+.spot-tag {
+  display: inline-block;
+  margin-top: 7px;
+  font-family: var(--mono); font-size: 18px;
+  color: var(--gold); background: var(--gold-light);
+  padding: 2px 9px;
 }
 
 /* ===== HIGHLIGHTS STRIP ===== */
@@ -518,7 +567,8 @@ const days = [
       { time: '20:30', text: '辦理入住 APA 飯店西新宿五丁目', badge: null },
       { time: '21:30', text: '飯店大浴場——第一晚先泡湯，舒緩飛行後的浮腫與勞累', badge: '泡湯首選' },
       { time: '深夜', text: '飯店一樓 FamilyMart 採買，或在西新宿周邊尋找深夜拉麵店', badge: null },
-    ]
+    ],
+    spots: []
   },
   {
     date: '5/20', dow: '三', name: '老江戶與大人味選物',
@@ -529,6 +579,13 @@ const days = [
       { time: '下午', text: '日本橋 COREDO 室町——成熟男士必逛，傳承百年職人選物、錫器、漆器與高級乾貨', badge: null },
       { time: '傍晚', text: '日比谷公園散步，感受都市綠洲；隨後前往東京鐵塔，欣賞最具代表性的東京地標', badge: null },
       { time: '晚餐', text: '錦糸町 麵屋 佐市（牡蠣拉麵）', badge: '牡蠣控必訪' },
+    ],
+    spots: [
+      { name: '雷門 & 仲見世通', desc: '超過250年歷史的老街，必吃人形燒、吉備糰子、炸肉餅，早上8點前人少好拍照', tag: '免費' },
+      { name: '淺草文化觀光中心', desc: '雷門正對面，頂樓展望台免費，可俯瞰完整仲見世通與遠眺晴空塔', tag: '免費展望台' },
+      { name: '淺草寺', desc: '東京最古老寺廟（628年），求御神籤每次100日圓，注意仲見世通禁止邊走邊吃', tag: '參拜自由' },
+      { name: '合羽橋道具街', desc: '約800公尺、170間廚具職人店，食器、刀具、廚房雜貨控必逛，多數週日公休', tag: '10:00–17:00' },
+      { name: '淺草神社', desc: '與淺草寺比鄰，供奉創建者三位，俗稱「三社大人」，氛圍比淺草寺樸實靜謐', tag: '免費' },
     ]
   },
   {
@@ -540,6 +597,14 @@ const days = [
       { time: '下午', text: '桃源台搭海賊船遊蘆之湖，參拜箱根神社水中鳥居', badge: null },
       { time: '16:30', text: '入住 Hakone Yutowa', badge: null },
       { time: '晚上', text: '享用飯店晚餐及 Free-flow 暢飲，在 Library Lounge 聊天放鬆', badge: '暢飲無限制' },
+    ],
+    spots: [
+      { name: '大湧谷', desc: '火山活動爆裂口，硫磺氣體噴發景觀壯觀，吃黑蛋據說延壽七年，空中纜車俯瞰地獄谷', tag: '必去' },
+      { name: '桃源台湖畔長廊', desc: '下纜車後先沿湖畔散步，感受蘆之湖微風，欣賞群山倒影', tag: '免費散步' },
+      { name: '箱根海賊船', desc: '桃源台港→箱根町港→元箱根港，三種造型船班，持箱根周遊券可無限搭乘', tag: '25分鐘航程' },
+      { name: '箱根神社水中鳥居', desc: '千年古神社，平和鳥居直立蘆之湖中，紅色身影配湖光山色，是絕美打卡點，建議早上來', tag: '08:15–17:00' },
+      { name: '恩賜箱根公園', desc: '原日本皇室別墅（1886年），天氣晴時能拍到蘆之湖×富士山如畫景色，免費入園', tag: '免費' },
+      { name: '票券提醒', desc: '箱根周遊券涵蓋8種交通工具（登山鐵道、空中纜車、海賊船、巴士等），強烈建議事先購買', tag: '2日/3日券' },
     ]
   },
   {
@@ -551,6 +616,11 @@ const days = [
       { time: '15:00', text: '抵達新宿，回 APA 辦理入住', badge: null },
       { time: '17:00', text: '澀谷跳舞課', badge: '上課 Day 1' },
       { time: '深夜', text: '課後回飯店泡大浴場，修復腿部肌肉', badge: null },
+    ],
+    spots: [
+      { name: '雕刻森林美術館', desc: '1969年開幕，日本第一座露天雕塑公園，百件大師作品融入自然，內有畢卡索館與足湯', tag: '09:00–17:00' },
+      { name: '強羅公園', desc: '建於斜坡上的歷史公園，西門與正門高差40公尺，玫瑰軟雪糕有名，可體驗手工藝製作', tag: '季節賞花' },
+      { name: '箱根湯本商店街', desc: '回程前採買伴手禮最佳地點，現烤溫泉饅頭、箱根限定甜點，也有足湯可順便泡', tag: '伴手禮' },
     ]
   },
   {
@@ -561,6 +631,12 @@ const days = [
       { time: '中午', text: '新宿 / 原宿 / 表參道逛選物店（Beams, United Arrows）', badge: null },
       { time: '下午', text: '澀谷 / 表參道巷弄散步，尋找特色手沖咖啡', badge: null },
       { time: '晚上', text: '跳舞課行程。課後可在澀谷尋找美味的精釀酒吧（Craft Beer Bar）', badge: '上課 Day 2' },
+    ],
+    spots: [
+      { name: '東京都廳展望台', desc: '45樓南北展望室免費開放，步行10分鐘可達，俯瞰新宿摩天樓群與遠方富士山', tag: '免費 9:00–22:30' },
+      { name: 'Beams / United Arrows', desc: '原宿至表參道一帶，日本最具代表性的選物店，獨家別注款與職人品牌齊聚', tag: '選物' },
+      { name: '表參道巷弄咖啡', desc: '表參道至青山一帶聚集大量精品手沖咖啡廳，建議隨意走進小巷探索', tag: '手沖咖啡' },
+      { name: '澀谷精釀酒吧', desc: '澀谷道玄坂一帶有多間 Craft Beer Bar，課後放鬆小酌的好去處', tag: '課後限定' },
     ]
   },
   {
@@ -570,6 +646,15 @@ const days = [
       { time: '全日', text: '鎌倉 & 江之島——搭乘江之電，看海、看湘南海岸。這是這趟行程最後的悠閒時光', badge: '海風最療癒' },
       { time: '傍晚', text: '返回飯店取回大行李', badge: null },
       { time: '晚上', text: '入住羽田機場 泉天空之湯——離開日本前最後一次露天溫泉，直接看飛機起降', badge: '飛機溫泉' },
+    ],
+    spots: [
+      { name: '鶴岡八幡宮', desc: '鎌倉最具代表性神社（1063年），參道「段葛」兩側風景美，是日本戰神・源氏武士守護神', tag: '免費參拜' },
+      { name: '鎌倉大佛（高德院）', desc: '1252年青銅鑄造，含底座高13.35公尺，鎌倉唯一日本國寶，長谷站步行10分鐘', tag: '門票300日圓' },
+      { name: '長谷寺', desc: '觀景台可望鎌倉大海與街景，5月正值繡球花季，景致優美', tag: '花季推薦' },
+      { name: '鎌倉高校前平交道', desc: '《灌籃高手》片頭取景地，建議早上人少時來，等江之電駛過拍照', tag: '動漫聖地' },
+      { name: '江島神社 & 電扶梯', desc: '六世紀創立，整座島的核心景點，爬樓梯約20分鐘，建議購電扶梯通票（500日圓）', tag: '必訪' },
+      { name: '江之島海蠟燭展望燈塔', desc: '島上最高建築，360度景觀，天氣好能見富士山與日落，付費登塔強烈推薦', tag: '景觀台' },
+      { name: '交通票券', desc: '「江之島鎌倉周遊券」成人1,640日圓，含新宿↔藤澤來回＋江之電全線一日無限乘坐', tag: '必買票券' },
     ]
   },
   {
@@ -579,7 +664,8 @@ const days = [
       { time: '06:30', text: '飯店早餐', badge: null },
       { time: '08:55', text: '羽田 T3 搭乘 JL097 返回台北松山機場（訂位代號：CJHWCI）', badge: '平安返家' },
       { time: '11:15', text: '抵達台北松山機場第一航廈', badge: null },
-    ]
+    ],
+    spots: []
   }
 ];
 
@@ -619,6 +705,20 @@ days.forEach((day, idx) => {
             </div>
           `).join('')}
         </div>
+        ${day.spots && day.spots.length > 0 ? `
+        <div class="spots">
+          <div class="spots-label">景點參考</div>
+          <div class="spots-grid">
+            ${day.spots.map(s => `
+              <div class="spot-card">
+                <div class="spot-name">${s.name}</div>
+                <div class="spot-desc">${s.desc}</div>
+                ${s.tag ? `<div class="spot-tag">${s.tag}</div>` : ''}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        ` : ''}
       </div>
     </div>
   `;
