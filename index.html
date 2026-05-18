@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;700&family=Shippori+Mincho:wght@400;500;700&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
 :root {
   --vermillion: #C84B2F;
   --vermillion-light: #E8C4B8;
@@ -437,8 +437,8 @@ body::before {
     </p>
     <div class="hero-meta">
       <div class="hero-tag">✈ 5月19日 — 25日</div>
-      <div class="hero-tag">羽田 T3 進出</div>
-      <div class="hero-tag">APA 西新宿五丁目</div>
+      <div class="hero-tag">JL098 去 · JL097 回</div>
+      <div class="hero-tag">訂位代號 CJHWCI</div>
       <div class="hero-tag">一泊二食 箱根</div>
     </div>
   </div>
@@ -497,7 +497,7 @@ body::before {
   <div class="footer">
     <div class="footer-left">
       <div class="footer-flight">JL097 歸途 ✈</div>
-      <div class="footer-detail">5/25（一）08:55 羽田 T3 → 台北 松山</div>
+      <div class="footer-detail">5/25（一）08:55 羽田 T3 → 11:15 台北松山 T1 · 訂位代號 CJHWCI</div>
     </div>
     <div class="footer-right">
       TOKYO · HAKONE · KAMAKURA<br>
@@ -513,6 +513,7 @@ const days = [
     date: '5/19', dow: '二', name: '抵達東京',
     sub: '洗去飛行疲勞 · 西新宿',
     items: [
+      { time: '14:20', text: 'JL098 松山機場起飛', badge: '波音 787-9' },
       { time: '18:30', text: '抵達羽田國際機場 T3', badge: null },
       { time: '20:30', text: '辦理入住 APA 飯店西新宿五丁目', badge: null },
       { time: '21:30', text: '飯店大浴場——第一晚先泡湯，舒緩飛行後的浮腫與勞累', badge: '泡湯首選' },
@@ -576,7 +577,8 @@ const days = [
     sub: 'JL097 · 返回台北',
     items: [
       { time: '06:30', text: '飯店早餐', badge: null },
-      { time: '08:55', text: '羽田 T3 搭乘 JL097 返回台北松山機場', badge: '平安返家' },
+      { time: '08:55', text: '羽田 T3 搭乘 JL097 返回台北松山機場（訂位代號：CJHWCI）', badge: '平安返家' },
+      { time: '11:15', text: '抵達台北松山機場第一航廈', badge: null },
     ]
   }
 ];
